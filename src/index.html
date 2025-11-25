@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student project for Adaptive Web Design">
+  <title>Student Project - Home</title>
+
+  <!-- Separate CSS files -->
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Preload important resources -->
+  <link rel="preload" href="css/index.css" as="style">
+  <link rel="preload" href="css/responsive.css" as="style">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header role="banner">
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <h1 class="logo">My Project</h1>
+      <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="visually-hidden">Menu</span>
+      </button>
+      <ul id="main-menu" class="nav-menu">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+<!--        <li><a href="about.html">About</a></li>-->
+<!--        <li><a href="contact.html">Contact</a></li>-->
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="main-content" role="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <h1 id="hero-title">Welcome to My Adaptive Website</h1>
+      <p>This project demonstrates adaptive web design and accessibility principles.</p>
+      <a href="#features" class="cta-button">Learn More</a>
+    </div>
+  </section>
+
+  <section id="features" class="features" aria-labelledby="features-title">
+    <div class="container">
+      <h2 id="features-title" class="section-title">Key Features</h2>
+      <div class="features-grid">
+        <article class="feature-card" aria-labelledby="feature1-title">
+          <div class="feature-icon" aria-hidden="true">🎨</div>
+          <h3 id="feature1-title">Adaptive Design</h3>
+          <p>Works perfectly on all device sizes from mobile to desktop.</p>
+        </article>
+
+        <article class="feature-card" aria-labelledby="feature2-title">
+          <div class="feature-icon" aria-hidden="true">♿</div>
+          <h3 id="feature2-title">Accessible</h3>
+          <p>Built with accessibility in mind for all users.</p>
+        </article>
+
+        <article class="feature-card" aria-labelledby="feature3-title">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3 id="feature3-title">Fast Loading</h3>
+          <p>Optimized for performance and quick loading times.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" aria-labelledby="content-title">
+    <div class="container">
+      <h2 id="content-title">Main Content Area</h2>
+      <p>This section demonstrates proper HTML structure and semantic markup.</p>
+
+      <form class="contact-form" aria-labelledby="form-title">
+        <h3 id="form-title">Contact Form Example</h3>
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+        </div>
+
+        <button type="submit" class="submit-button">Send Message</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <p>&copy; 2024 My Student Project. All rights reserved.</p>
+    <p>UBB Cluj-Napoca - Faculty of Computer Science</p>
+  </div>
+</footer>
+
+<script src="js"></script>
+</body>
+</html>
