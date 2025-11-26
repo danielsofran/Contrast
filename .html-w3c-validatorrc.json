@@ -1,0 +1,6 @@
+{
+  "$schema": "./node_modules/html-w3c-validator/schema/schema.json",
+  "files": [
+    "./src/index.html"
+  ]
+}

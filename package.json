@@ -1,0 +1,16 @@
+{
+  "name": "testing",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "daniel.sofran@stud.ubbcluj.ro",
+  "type": "module",
+  "scripts": {
+    "validate:html": "html-w3c-validator",
+    "validate:css": "node validate-css.js"
+  },
+  "devDependencies": {
+    "html-w3c-validator": "^1.7.0",
+    "w3c-css-validator": "^1.4.0"
+  }
+}
