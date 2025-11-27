@@ -498,7 +498,7 @@ header {
     border-radius: 50%;
 }
 
-/* Architecture Comparison */
+/* Timeline & Style Section */
 .architecture-comparison {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -511,6 +511,7 @@ header {
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    text-align: center;
 }
 
 .dark-section .arch-style {
@@ -518,29 +519,37 @@ header {
 }
 
 .arch-visual {
-    display: flex;
-    gap: 10px;
-    height: 100px;
     margin: 1rem 0;
-    justify-content: center;
-    align-items: flex-end;
 }
 
-.building-feature {
-    width: 30px;
-    background: #bdc3c7;
+.arch-visual img {
+    width: 100%;
+    height: auto;
+    max-height: 433px;
+    object-fit: cover;
+    border-radius: calc(var(--border-radius) - 2px);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
 }
 
-.building-feature.gothic { height: 80px; }
-.building-feature.stone { height: 60px; }
-.building-feature.arched { height: 70px; border-radius: 10px 10px 0 0; }
-.building-feature.clean { height: 90px; }
-.building-feature.glass { height: 70px; background: #3498db; opacity: 0.7; }
-.building-feature.minimal { height: 50px; }
+.arch-visual img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.arch-style h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.dark-section .arch-style h3 {
+    color: var(--dark-text);
+}
 
 .arch-style ul {
     list-style: none;
     margin-top: 1rem;
+    text-align: left;
 }
 
 .arch-style li {
@@ -552,7 +561,7 @@ header {
     border-bottom: 1px solid #4a6572;
 }
 
-/* Identity Section */
+/* Identity & Ideology Section */
 .identity-comparison {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -569,19 +578,31 @@ header {
 }
 
 .profile-visual {
-    padding: 2rem;
-    border-radius: var(--border-radius);
     margin-bottom: 1rem;
 }
 
-.blue-profile {
-    background: #3498db;
-    color: white;
+.profile-visual img {
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--border-radius) - 2px);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.profile-visual img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.identity-profile h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
 }
 
 .identity-profile ul {
     list-style: none;
     text-align: left;
+    margin-top: 1rem;
 }
 
 .identity-profile li {
@@ -589,70 +610,58 @@ header {
     border-bottom: 1px solid #eee;
 }
 
-/* Shape and Color Combination */
-.shape-demos {
+/* Shape & Color Combination */
+.shape-color-combination {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #eee;
+}
+
+.shape-color-combination h3 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.shape-images {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-top: 2rem;
+    margin: 2rem 0;
 }
 
-.shape-demo {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+.shape-image-item {
     text-align: center;
 }
 
-.spiral-visual {
-    position: relative;
-    height: 150px;
-    margin: 1rem 0;
+.shape-image-item img {
+    width: auto;
+    height: 267px;
+    max-width: 100%;
+    border-radius: calc(var(--border-radius) - 2px);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    margin-bottom: 1rem;
 }
 
-.spiral-segment {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    opacity: 0.7;
+.shape-image-item img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.spiral-segment.red { background: #e74c3c; top: 0; left: 0; }
-.spiral-segment.blue { background: #3498db; top: 20px; left: 20px; }
-.spiral-segment.yellow { background: #f1c40f; top: 40px; left: 40px; }
-.spiral-segment.green { background: #2ecc71; top: 60px; left: 60px; }
-
-.geometric-visual {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
+.shape-image-item p {
+    font-style: italic;
+    color: var(--text-color);
+    line-height: 1.5;
 }
 
+/* Remove old shape styles */
+.spiral-visual,
+.geometric-visual,
+.spiral-segment,
 .geo-shape {
-    width: 60px;
-    height: 60px;
-}
-
-.geo-shape.triangle {
-    width: 0;
-    height: 0;
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
-    border-bottom: 60px solid #e74c3c;
-    background: transparent;
-}
-
-.geo-shape.circle {
-    border-radius: 50%;
-    background: #3498db;
-}
-
-.geo-shape.square {
-    background: #f1c40f;
+    display: none;
 }
 
 /* Footer */

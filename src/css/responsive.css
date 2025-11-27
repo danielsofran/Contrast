@@ -101,6 +101,23 @@
         font-size: 1.3rem;
         margin-bottom: 1rem;
     }
+
+    .architecture-comparison,
+    .identity-comparison,
+    .shape-images {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .arch-style,
+    .identity-profile {
+        padding: 1.5rem;
+    }
+
+    .shape-color-combination {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+    }
 }
 
 /* Mobile Styles */
@@ -195,6 +212,19 @@
     .form-visual img {
         border-radius: calc(var(--border-radius) - 4px);
     }
+
+    .arch-style,
+    .identity-profile {
+        padding: 1rem;
+    }
+
+    .shape-image-item {
+        margin-bottom: 1.5rem;
+    }
+
+    .shape-color-combination h3 {
+        font-size: 1.3rem;
+    }
 }
 
 /* Large Desktop Styles */
@@ -221,6 +251,22 @@
     }
 
     .space-demo {
+        padding: 2.5rem;
+    }
+
+    .architecture-comparison,
+    .identity-comparison {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+
+    .shape-images {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+
+    .arch-style,
+    .identity-profile {
         padding: 2.5rem;
     }
 }
@@ -250,6 +296,16 @@
     .form-visual img {
         border: 2px solid var(--text-color);
     }
+
+    .arch-visual img,
+    .profile-visual img,
+    .shape-image-item img {
+        border: 2px solid var(--text-color);
+    }
+
+    .shape-color-combination {
+        border-top-color: var(--text-color);
+    }
 }
 
 /* Reduced motion support */
@@ -275,6 +331,12 @@
 
     .space-visual img:hover,
     .form-visual img:hover {
+        transform: none;
+    }
+
+    .arch-visual img:hover,
+    .profile-visual img:hover,
+    .shape-image-item img:hover {
         transform: none;
     }
 }
