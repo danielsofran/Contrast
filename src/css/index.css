@@ -639,6 +639,7 @@ header {
     width: auto;
     height: 267px;
     max-width: 100%;
+    object-fit: cover;
     border-radius: calc(var(--border-radius) - 2px);
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
