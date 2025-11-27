@@ -131,6 +131,10 @@
         width: 100%;
         font-size: 0.8rem;
     }
+
+    .gray-step:hover {
+        transform: scaleY(1.2);
+    }
 }
 
 /* Large Desktop Styles */

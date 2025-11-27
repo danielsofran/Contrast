@@ -25,23 +25,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--light-bg);
-}
-
-/* Accessibility */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 6px;
-    background: var(--primary-color);
-    color: white;
-    padding: 8px;
-    text-decoration: none;
-    z-index: 1000;
-    border-radius: var(--border-radius);
-}
-
-.skip-link:focus {
-    top: 6px;
+    overflow-x: hidden;
 }
 
 .visually-hidden {
