@@ -120,13 +120,16 @@
     }
 
     .gray-bar {
-        height: 50px;
+        height: auto;
         flex-direction: column;
+        width: 80%;
+        margin: 1.5rem auto;
     }
 
     .gray-step {
-        height: 40px;
-        font-size: 0.9rem;
+        height: 50px;
+        width: 100%;
+        font-size: 0.8rem;
     }
 }
 
