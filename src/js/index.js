@@ -22,13 +22,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
-	// Form validation example
-	const contactForm = document.querySelector('.contact-form');
-	if (contactForm) {
-		contactForm.addEventListener('submit', function(e) {
+	// Smooth scrolling for anchor links
+	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+		anchor.addEventListener('click', function (e) {
 			e.preventDefault();
-			// Add your form validation logic here
-			alert('Form submitted successfully!');
+
+			const targetId = this.getAttribute('href');
+			if (targetId === '#') return;
+
+			const targetElement = document.querySelector(targetId);
+			if (targetElement) {
+				window.scrollTo({
+					top: targetElement.offsetTop - 80,
+					behavior: 'smooth'
+				});
+			}
 		});
-	}
+	});
 });
