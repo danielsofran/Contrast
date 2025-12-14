@@ -1,5 +1,7 @@
+/* ===== RESPONSIVE & ADAPTIVE CSS ===== */
+
 /* Tablet Styles */
-@media screen and (max-width: 890px) {
+@media screen and (max-width: 900px) {
     .mobile-menu-toggle {
         display: flex;
     }
@@ -27,7 +29,7 @@
     }
 
     .mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
+        transform: rotate(45deg) translate(var(--menu-width), var(--menu-width));
     }
 
     .mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(2) {
@@ -35,7 +37,7 @@
     }
 
     .mobile-menu-toggle[aria-expanded="true"] .hamburger-line:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
+        transform: rotate(-45deg) translate(var(--menu-width), calc(-1 * var(--menu-width)));
     }
 
     .hero-content {
@@ -77,6 +79,22 @@
 
     .gray-bar {
         height: 60px;
+    }
+
+    .card {
+        transform: none !important; /* Disable hover transform on touch devices */
+    }
+
+    .spiral-image-item img:hover {
+        /*transition: none !important;*/
+        transform: none !important;
+    }
+}
+
+@media screen and (max-width: 900px) and (min-width: 650px) {
+    .tablet-shrink {
+        max-width: 60%;
+        margin: 0 auto;
     }
 }
 
@@ -138,7 +156,7 @@
 }
 
 /* Large Desktop Styles */
-@media screen and (min-width: 890px) {
+@media screen and (min-width: 900px) {
     .container {
         padding: 0 2rem;
     }
@@ -171,6 +189,368 @@
     }
 }
 
+/* ===== ADAPTIVE ENHANCEMENTS ===== */
+
+/* 1. TOUCH DEVICE DETECTION & OPTIMIZATION */
+@media (hover: none) and (pointer: coarse) {
+    /* Specific optimizations for touch devices only */
+    .nav-menu a:hover {
+        background-color: transparent !important;
+        color: inherit !important;
+    }
+
+    .image-container img:hover {
+        transform: none !important;
+    }
+
+    /*.cta-button {*/
+    /*    padding: 0.9rem 2.2rem; !* Larger touch target *!*/
+    /*}*/
+
+    /* Remove hover states on cards */
+    .card:hover {
+        transform: none;
+        box-shadow: var(--shadow);
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    /* Only apply hover effects for mouse users */
+    .nav-menu a:hover {
+        background: var(--secondary-color);
+        color: var(--white);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+}
+
+/* 2. SCREEN DENSITY ADAPTATION */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi),
+(min-resolution: 2dppx) {
+    /* High-DPI (Retina) screen optimizations */
+    .logo {
+        font-weight: 600; /* Slightly bolder for clarity */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .hero-image img,
+    .section-image img {
+        /* Ensure images look sharp on retina */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+
+    .gray-step {
+        /* Sharper edges for high-DPI */
+        border: 0.5px solid rgba(0,0,0,0.1);
+    }
+}
+
+/* 4. DARK MODE ENHANCEMENTS */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Enhanced dark theme colors with better contrast ratios */
+        --primary-color: #4a6fa5;           /* Brighter, more visible blue */
+        --secondary-color: #64b5f6;         /* Soft, vibrant blue for accents */
+        --accent-color: #ff6b6b;            /* Warmer, more visible red */
+        --text-color: #e0e0e0;              /* Off-white for better readability */
+        --light-bg: #121212;                /* True dark background (Material Dark) */
+        --white: #1e1e1e;                   /* Darker card/surface color */
+        --dark-bg: #0a0a0a;                 /* Even darker for sections */
+        --dark-text: #ffffff;               /* Pure white for dark sections */
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Deeper, more pronounced shadows */
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+
+        /* Additional dark mode specific variables */
+        --surface-elevation-1: #1e1e1e;     /* Cards, surfaces */
+        --surface-elevation-2: #252525;     /* Elevated surfaces */
+        --border-color: #404040;            /* Subtle borders */
+        --hover-overlay: rgba(255, 255, 255, 0.08); /* Subtle hover effects */
+        --disabled-color: #5a5a5a;          /* Disabled state color */
+    }
+
+    body {
+        background-color: var(--light-bg);
+        color: var(--text-color);
+        /* Smoother text rendering in dark mode */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .hero {
+        color: var(--text-color);
+    }
+
+    /* Enhanced component styling */
+    .card {
+        background: var(--surface-elevation-1);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .dark-section {
+        background: var(--dark-bg);
+        color: var(--dark-text);
+    }
+
+    .hero {
+        background: linear-gradient(135deg,
+        #1a365d 0%,
+        #2c5282 50%,
+        #4a6fa5 100%);
+    }
+
+    /* Enhanced navigation */
+    header {
+        background: var(--surface-elevation-1);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-menu a {
+        color: var(--text-color);
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a:focus,
+    .nav-menu a[aria-current="page"] {
+        background: var(--secondary-color);
+        color: var(--white);
+    }
+
+    /* Enhanced contrast items */
+    .contrast-item {
+        border: 1px solid var(--border-color);
+    }
+
+    .bw-contrast {
+        background: linear-gradient(135deg, #1a1a1a, #e0e0e0);
+        color: #ffffff;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    }
+
+    /* Enhanced images in dark mode */
+    .image-container img {
+        filter: brightness(0.9) contrast(1.1);
+        border-color: var(--border-color);
+    }
+
+    /* Enhanced text contrast */
+    .conclusion {
+        border-left-color: var(--secondary-color);
+        background: rgba(100, 181, 246, 0.1);
+    }
+
+    /* Enhanced links */
+    a:not(.cta-button) {
+        color: var(--secondary-color);
+    }
+
+    a:not(.cta-button):hover {
+        border-bottom-style: solid;
+    }
+
+    /* Enhanced button */
+    .cta-button {
+        background: var(--accent-color);
+        color: var(--white);
+        /*box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);*/
+    }
+
+    .cta-button:hover,
+    .cta-button:focus {
+        background: #ff5252;
+        box-shadow: 0 6px 16px rgba(255, 82, 82, 0.4);
+    }
+
+    /* Enhanced list items */
+    .list li {
+        border-bottom-color: var(--border-color);
+    }
+
+    /* Enhanced section titles */
+    .section-title {
+        color: var(--secondary-color);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .dark-section .section-title {
+        color: var(--dark-text);
+    }
+
+    /* Enhanced logo */
+    .logo {
+        color: var(--secondary-color);
+    }
+}
+
+/* 5. ADAPTIVE ANIMATION CONTROL */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .cta-button:hover,
+    .cta-button:focus,
+    .image-container img:hover,
+    .gray-step:hover {
+        transform: none;
+    }
+
+    .hero-image img {
+        animation: none !important;
+    }
+
+    .image-container img {
+        transition: none !important;
+    }
+
+    .gray-step {
+        transition: none !important;
+    }
+
+    /* Also remove transform animations */
+    .cta-button:hover,
+    .cta-button:focus {
+        transform: none !important;
+    }
+}
+
+/* 6. PERFORMANCE OPTIMIZATIONS FOR LOW-END DEVICES */
+@media (max-width: 768px) and (max-resolution: 150dpi) {
+    /* Low-DPI mobile devices (often lower-end) */
+    .hero-image img {
+        max-width: 280px !important; /* Smaller image for performance */
+    }
+
+    .card-grid,
+    .contrast-grid {
+        gap: 1rem !important; /* Less spacing */
+    }
+
+    /* Simplify shadows for better performance */
+    .card {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+}
+
+/* 7. ADAPTIVE TYPOGRAPHY (viewport-based) */
+@media screen and (min-width: 320px) {
+    :root {
+        /* Fluid typography variables */
+        --fluid-min-width: 320;
+        --fluid-max-width: 1200;
+        --fluid-min-size: 16;
+        --fluid-max-size: 18;
+    }
+
+    body:not(.nav-container):not(.nav-container *){
+        font-size: clamp(16px, calc(16px + 2 * (100vw - 320px) / 880), 18px);
+    }
+
+    /* Adaptive headings */
+    .hero-text h1 {
+        font-size: clamp(1.75rem, 5vw, 3rem);
+    }
+
+    .section-title {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+}
+
+/* 8. ADAPTIVE SPACING (context-aware) */
+@media screen and (max-width: 480px) and (max-height: 700px) {
+    /* Small screens in portrait (common mobile) */
+    .hero {
+        padding: 1.5rem 0.5rem !important;
+    }
+
+    .content-section {
+        padding: 1.5rem 0.5rem !important;
+    }
+
+    footer {
+        padding: 1.5rem 0.5rem !important;
+        margin-top: 2rem !important;
+    }
+}
+
+/* 9. PRINT OPTIMIZATIONS */
+@media print {
+    /* Remove unnecessary elements for printing */
+    .nav-container,
+    .mobile-menu-toggle,
+    .cta-button {
+        display: none !important;
+    }
+
+    /* Ensure good contrast for printing */
+    body {
+        color: #000 !important;
+        background: #fff !important;
+        font-size: 12pt !important;
+        line-height: 1.5 !important;
+    }
+
+    .card {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        break-inside: avoid; /* Prevent card splitting across pages */
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: underline !important;
+    }
+
+    /* Add URLs after links for printed documents */
+    a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.9em;
+        font-weight: normal;
+    }
+
+    img {
+        max-width: 100% !important;
+        max-height: 95vh !important;
+        page-break-inside: avoid; /* Prevent image splitting across pages */
+    }
+}
+
+/* 10. INTERACTION-BASED ADAPTATIONS */
+:focus-visible {
+    /* Modern focus indication for keyboard users */
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+    border-radius: var(--border-radius);
+}
+
+@media (scripting: none) {
+    /* Fallback for when JavaScript is disabled */
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+
+    .nav-menu {
+        position: static !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        flex-direction: row !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: more) {
     :root {
@@ -186,21 +566,5 @@
 
     .image-container img {
         border: 2px solid var(--text-color);
-    }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-
-    .cta-button:hover,
-    .cta-button:focus,
-    .image-container img:hover,
-    .gray-step:hover {
-        transform: none;
     }
 }

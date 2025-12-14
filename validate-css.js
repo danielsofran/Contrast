@@ -15,7 +15,7 @@ function findCSSFiles(dir) {
 			if (entry.name !== 'node_modules') {
 				cssFiles.push(...findCSSFiles(fullPath));
 			}
-		} else if (entry.isFile() && path.extname(entry.name).toLowerCase() === '.css') {
+		} else if (entry.isFile() && path.extname(entry.name).toLowerCase() === '.css' && !entry.name.endsWith('.min.css')) {
 			cssFiles.push(fullPath);
 		}
 	}
