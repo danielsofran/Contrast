@@ -8,6 +8,7 @@
   "scripts": {
     "validate:html": "html-w3c-validator",
     "validate:css": "node validate-css.js",
+    "validate:accessibility": "node validate-accessibility.js",
     "minify": "node minify.js"
   },
   "devDependencies": {
@@ -15,10 +16,13 @@
     "w3c-css-validator": "^1.4.0"
   },
   "dependencies": {
+    "axe": "^13.0.0",
+    "axe-core": "^4.11.0",
     "fs-extra": "^11.3.2",
     "html-minifier": "^4.0.0",
     "imagemin": "^9.0.1",
     "imagemin-pngquant": "^10.0.0",
+    "puppeteer": "^24.33.0",
     "uglify-js": "^3.19.3",
     "uglifycss": "^0.0.29"
   }
