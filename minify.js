@@ -1,6 +1,6 @@
-import { readFile, writeFile, readdir, mkdir, cp } from 'fs/promises';
-import { existsSync } from 'fs';
-import path, { join, dirname } from 'path';
+import {readFile, writeFile, readdir, mkdir, cp} from 'fs/promises';
+import {existsSync} from 'fs';
+import path, {join, dirname} from 'path';
 import uglifyJS from 'uglify-js';
 import uglifycss from 'uglifycss';
 import htmlMinifier from 'html-minifier';
@@ -27,7 +27,7 @@ const minifyImages = async (srcFolder, destFolder) => {
 	try {
 		// Ensure the destination directory exists
 		if (!existsSync(destFolder)) {
-			await mkdir(destFolder, { recursive: true });
+			await mkdir(destFolder, {recursive: true});
 		}
 
 		// Find and process PNG files [citation:6]
@@ -52,13 +52,13 @@ const minifyImages = async (srcFolder, destFolder) => {
 		console.error('❌ Error optimizing images:', error);
 		// Fallback to copying
 		console.log('⚠️  Falling back to copying images as-is');
-		await cp(srcFolder, destFolder, { recursive: true });
+		await cp(srcFolder, destFolder, {recursive: true});
 	}
 }
 
 // Recursive function to find all JSON files in a directory
 async function findJSONFiles(dir, fileList = []) {
-	const files = await readdir(dir, { withFileTypes: true });
+	const files = await readdir(dir, {withFileTypes: true});
 
 	for (const file of files) {
 		const fullPath = join(dir, file.name);
@@ -80,7 +80,7 @@ async function minifySite() {
 	try {
 		// Create dist directory if it doesn't exist
 		if (!existsSync(distDir)) {
-			await mkdir(distDir, { recursive: true });
+			await mkdir(distDir, {recursive: true});
 		}
 
 		// Copy assets folder
@@ -97,7 +97,7 @@ async function minifySite() {
 		const cssDestDir = join(distDir, 'css');
 
 		if (existsSync(cssSrcDir)) {
-			await mkdir(cssDestDir, { recursive: true });
+			await mkdir(cssDestDir, {recursive: true});
 			const cssFiles = (await readdir(cssSrcDir)).filter(f => f.endsWith('.css'));
 
 			const cssMap = {};
@@ -115,7 +115,7 @@ async function minifySite() {
 			const jsDestDir = join(distDir, 'js');
 
 			if (existsSync(jsSrcDir)) {
-				await mkdir(jsDestDir, { recursive: true });
+				await mkdir(jsDestDir, {recursive: true});
 				const jsFiles = (await readdir(jsSrcDir)).filter(f => f.endsWith('.js'));
 
 				const jsMap = {};
@@ -146,7 +146,7 @@ async function minifySite() {
 					const outputDir = dirname(outputPath);
 
 					// Ensure directory exists
-					await mkdir(outputDir, { recursive: true });
+					await mkdir(outputDir, {recursive: true});
 
 					await writeFile(outputPath, minifiedJSON);
 					jsonMap[jsonFile.relativePath] = jsonFile.relativePath.replace('.json', '.min.json');
