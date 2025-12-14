@@ -7,10 +7,19 @@
   "type": "module",
   "scripts": {
     "validate:html": "html-w3c-validator",
-    "validate:css": "node validate-css.js"
+    "validate:css": "node validate-css.js",
+    "minify": "node minify.js"
   },
   "devDependencies": {
     "html-w3c-validator": "^1.7.0",
     "w3c-css-validator": "^1.4.0"
+  },
+  "dependencies": {
+    "fs-extra": "^11.3.2",
+    "html-minifier": "^4.0.0",
+    "imagemin": "^9.0.1",
+    "imagemin-pngquant": "^10.0.0",
+    "uglify-js": "^3.19.3",
+    "uglifycss": "^0.0.29"
   }
 }

@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Nature of Contrast - Understanding Visual, Philosophical & Design Principles",
+  "description": "Exploring the concept of contrast in design, philosophy, and human experience",
+  "image": "https://danielsofran.github.io/Contrast/assets/contrast-hero.png",
+  "author": {
+    "@type": "Person",
+    "name": "Daniel Sofran",
+    "url": "https://github.com/danielsofran"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Daniel Sofran",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://danielsofran.github.io/Contrast/assets/contrast-hero.png"
+    }
+  },
+  "datePublished": "2025-11-27",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://danielsofran.github.io/Contrast"
+  }
+}
