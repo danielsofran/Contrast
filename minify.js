@@ -30,6 +30,11 @@ const minifyImages = async (srcFolder, destFolder) => {
 			await mkdir(destFolder, {recursive: true});
 		}
 
+		const icons = await imagemin([`${srcFolder}/*.ico`], {
+			destination: destFolder
+		})
+		console.log(`✅ Copied ${icons.length} ICO files`);
+
 		// Find and process PNG files [citation:6]
 		// Note: Use absolute paths to avoid issues [citation:1]
 		const files = await imagemin([`${srcFolder}/**/*.png`], {
