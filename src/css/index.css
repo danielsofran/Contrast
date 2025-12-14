@@ -1,8 +1,8 @@
 /* CSS Variables for consistent theming */
 :root {
     --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
+    --secondary-color: #2980b9;
+    --accent-color: #ff1f00;
     --text-color: #333;
     --light-bg: #f8f9fa;
     --white: #ffffff;
@@ -353,9 +353,9 @@ header {
     position: relative;
 }
 
-.step-1 { background: #ffffff; color: #333; text-shadow: none; }
-.step-2 { background: #cccccc; }
-.step-3 { background: #999999; }
+.step-1 { background: #ffffff; color: #222; }
+.step-2 { background: #cccccc; color: #2c2c2c; }
+.step-3 { background: #999999; color: #2c2c2c; }
 .step-4 { background: #666666; }
 .step-5 { background: #333333; }
 
