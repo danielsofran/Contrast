@@ -1,6 +1,6 @@
 import {readFile, writeFile, readdir, mkdir, cp} from 'fs/promises';
 import {existsSync} from 'fs';
-import path, {join, dirname} from 'path';
+import path, {join, dirname, relative, resolve} from 'path';
 import uglifyJS from 'uglify-js';
 import uglifycss from 'uglifycss';
 import htmlMinifier from 'html-minifier';
@@ -19,6 +19,52 @@ function minifyJSON(jsonContent) {
 		console.error('Error minifying JSON:', error);
 		return jsonContent;
 	}
+}
+
+// Function to minify XML (similar to JSON minification)
+function minifyXML(xmlContent) {
+	try {
+		// Remove comments, extra whitespace, and line breaks
+		return xmlContent
+			.replace(/<!--[\s\S]*?-->/g, '')  // Remove XML comments
+			.replace(/\s+/g, ' ')             // Replace multiple spaces with single space
+			.replace(/>\s+</g, '><')          // Remove whitespace between tags
+			.trim();
+	} catch (error) {
+		console.error('Error minifying XML:', error);
+		return xmlContent; // Return original if there's an error
+	}
+}
+
+// Function to find XML files (similar to findJSONFiles)
+async function findXMLFiles(dir, fileList = []) {
+	const files = await readdir(dir, { withFileTypes: true });
+
+	for (const file of files) {
+		const fullPath = join(dir, file.name);
+
+		if (file.isDirectory()) {
+			await findXMLFiles(fullPath, fileList);
+		} else if (file.name.endsWith('.xml')) {
+			// Calculate relative path from srcDir
+			let relativePath;
+			try {
+				const absoluteSrcDir = resolve(srcDir);
+				const absoluteFilePath = resolve(fullPath);
+				relativePath = relative(absoluteSrcDir, absoluteFilePath);
+			} catch (error) {
+				console.error('Error calculating relative path:', error);
+				relativePath = fullPath.replace(srcDir + path.sep, '');
+			}
+
+			fileList.push({
+				path: fullPath,
+				relativePath: relativePath
+			});
+		}
+	}
+
+	return fileList;
 }
 
 const minifyImages = async (srcFolder, destFolder) => {
@@ -63,7 +109,7 @@ const minifyImages = async (srcFolder, destFolder) => {
 
 // Recursive function to find all JSON files in a directory
 async function findJSONFiles(dir, fileList = []) {
-	const files = await readdir(dir, {withFileTypes: true});
+	const files = await readdir(dir, { withFileTypes: true });
 
 	for (const file of files) {
 		const fullPath = join(dir, file.name);
@@ -71,9 +117,29 @@ async function findJSONFiles(dir, fileList = []) {
 		if (file.isDirectory()) {
 			await findJSONFiles(fullPath, fileList);
 		} else if (file.name.endsWith('.json')) {
+			// Calculate relative path from srcDir
+			let relativePath;
+			try {
+				// Resolve both paths to absolute for accurate comparison
+				const absoluteSrcDir = resolve(srcDir);
+				const absoluteFilePath = resolve(fullPath);
+
+				// Get relative path
+				relativePath = relative(absoluteSrcDir, absoluteFilePath);
+
+				// Debug logging
+				console.log('File found:', {
+					srcDir: absoluteSrcDir,
+					filePath: absoluteFilePath,
+					relative: relativePath
+				});
+			} catch (error) {
+				console.error('Error calculating relative path:', error);
+			}
+
 			fileList.push({
 				path: fullPath,
-				relativePath: fullPath.replace(srcDir, '').replace(/^[\\\/]/, '')
+				relativePath: relativePath
 			});
 		}
 	}
@@ -93,6 +159,11 @@ async function minifySite() {
 		const assetsDest = join(distDir, 'assets');
 
 		if (existsSync(assetsSrc)) {
+			// copy robots.txt if it exists
+			if (existsSync(join(srcDir, 'robots.txt'))) {
+				await writeFile(join(distDir, 'robots.txt'), await readFile(join(srcDir, 'robots.txt')));
+				console.log('🤖 Copied robots.txt');
+			}
 			await minifyImages(assetsSrc, assetsDest);
 			console.log('📁 Minified assets folder');
 		}
@@ -158,6 +229,31 @@ async function minifySite() {
 					console.log(`📊 Minified JSON: ${jsonFile.relativePath}`);
 				}
 
+				// Find and minify all XML files in src directory
+				const xmlFiles = await findXMLFiles(srcDir);
+				const xmlMap = {};
+
+				for (const xmlFile of xmlFiles) {
+					try {
+						const content = await readFile(xmlFile.path, 'utf8');
+						const minifiedXML = minifyXML(content);
+
+						// Create output path preserving directory structure
+						const outputPath = join(distDir, xmlFile.relativePath.replace('.xml', '.min.xml'));
+						const outputDir = dirname(outputPath);
+
+						// Ensure directory exists
+						await mkdir(outputDir, { recursive: true });
+
+						await writeFile(outputPath, minifiedXML);
+						xmlMap[xmlFile.relativePath] = xmlFile.relativePath.replace('.xml', '.min.xml');
+						console.log(`🗺️  Minified XML: ${xmlFile.relativePath}`);
+
+					} catch (error) {
+						console.error(`❌ Error minifying ${xmlFile.relativePath}:`, error.message);
+					}
+				}
+
 				// Process HTML
 				const htmlPath = join(srcDir, 'index.html');
 				if (existsSync(htmlPath)) {
@@ -194,6 +290,25 @@ async function minifySite() {
 						}
 
 						console.log(`🔄 Updated JSON reference: ${originalPath} -> ${minifiedPath}`);
+					}
+
+					// Replace XML references (like sitemap.xml)
+					for (const [originalPath, minifiedPath] of Object.entries(xmlMap)) {
+						const escapedPath = originalPath.replace(/\./g, '\\.');
+
+						const patterns = [
+							`href=["']${escapedPath}["']`,
+							`href=["']\\./${escapedPath}["']`,
+							`src=["']${escapedPath}["']`,
+							`src=["']\\./${escapedPath}["']`
+						];
+
+						for (const pattern of patterns) {
+							const regex = new RegExp(pattern, 'g');
+							htmlContent = htmlContent.replace(regex, `href="${minifiedPath}"`);
+						}
+
+						console.log(`🗺️  Updated XML reference: ${originalPath} -> ${minifiedPath}`);
 					}
 
 					// Minify HTML

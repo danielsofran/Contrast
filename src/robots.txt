@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://danielsofran.github.io/Contrast/sitemap.xml
