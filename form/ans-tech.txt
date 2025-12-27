@@ -1,0 +1,2 @@
+No preprocessors for simplicity. No libraries cause they have a ton of validation errors.
+The main point of this project was automation. There are automated html & CSS validation, minifying and image optimization. PWA feature is not enabled, as the minify process would become way more complex. Of course, some of these features are covered by Vite plugins. I was aware of those, but just tried to see how such bundler works. (PWA example: https://danielsofran.github.io/UBBOrarFrontend/, and in code https://github.com/danielsofran/UBBOrarFrontend/blob/main/vite.config.ts#L16).

@@ -161,7 +161,13 @@ async function minifySite() {
 		if (existsSync(assetsSrc)) {
 			// copy robots.txt if it exists
 			if (existsSync(join(srcDir, 'robots.txt'))) {
-				await writeFile(join(distDir, 'robots.txt'), await readFile(join(srcDir, 'robots.txt')));
+				// await writeFile(join(distDir, 'robots.txt'), await readFile(join(srcDir, 'robots.txt')));
+				// copy but replace sitemap.xml with sitemap.min.xml if it exists
+				let robotsContent = await readFile(join(srcDir, 'robots.txt'), 'utf8');
+				if (existsSync(join(srcDir, 'sitemap.xml'))) {
+					robotsContent = robotsContent.replace(/sitemap\.xml/g, 'sitemap.min.xml');
+				}
+				await writeFile(join(distDir, 'robots.txt'), robotsContent);
 				console.log('🤖 Copied robots.txt');
 			}
 			await minifyImages(assetsSrc, assetsDest);
